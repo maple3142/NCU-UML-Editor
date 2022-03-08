@@ -21,9 +21,4 @@ public class ClassObject extends BasicObject {
         g.drawLine(x, y + 2 * height / 3, x + width, y + 2 * height / 3);
         drawDots(g);
     }
-
-    @Override
-    public boolean checkInside(int xx, int yy) {
-        return x <= xx && xx <= x + width && y <= yy && yy <= y + height;
-    }
 }

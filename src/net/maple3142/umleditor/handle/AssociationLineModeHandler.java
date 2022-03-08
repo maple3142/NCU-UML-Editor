@@ -2,7 +2,6 @@ package net.maple3142.umleditor.handle;
 
 import net.maple3142.umleditor.ApplicationState;
 import net.maple3142.umleditor.components.BasicObject;
-import net.maple3142.umleditor.components.ClassObject;
 import net.maple3142.umleditor.components.ConnectionDot;
 import net.maple3142.umleditor.components.Line;
 
@@ -21,7 +20,7 @@ public class AssociationLineModeHandler extends BaseModeHandler {
         int y = e.getY();
         for (var obj : state.components.get()) {
             if (obj instanceof BasicObject) {
-                if (((BasicObject) obj).checkInside(x, y)) {
+                if (((BasicObject) obj).isPointInside(x, y)) {
                     startDot = ((BasicObject) obj).getClosestConnectionDot(x, y);
                     System.out.println(startDot.index);
                     break;
@@ -37,7 +36,7 @@ public class AssociationLineModeHandler extends BaseModeHandler {
         state.components.mutate(comps -> {
             for (var obj : comps) {
                 if (obj instanceof BasicObject) {
-                    if (((BasicObject) obj).checkInside(x, y)) {
+                    if (((BasicObject) obj).isPointInside(x, y)) {
                         var endDot = ((BasicObject) obj).getClosestConnectionDot(x, y);
                         System.out.println(endDot.index);
                         var line = new Line(startDot, endDot);

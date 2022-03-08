@@ -1,14 +1,16 @@
 package net.maple3142.umleditor.handle;
 
 import net.maple3142.umleditor.ApplicationState;
-import net.maple3142.umleditor.components.BasicObject;
-import net.maple3142.umleditor.components.UMLComponent;
+import net.maple3142.umleditor.components.SelectableObject;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.List;
+import java.util.ArrayList;
+
+import net.maple3142.umleditor.Rectangle;
 
 public class SelectModeHandler extends BaseModeHandler {
-    private UMLComponent selection;
     /* Last triggering point */
     private int sx;
     private int sy;
@@ -19,30 +21,35 @@ public class SelectModeHandler extends BaseModeHandler {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        int x = e.getX();
+        int y = e.getY();
         boolean clickOnObject = false;
         for (var obj : state.components.get()) {
-            if (obj instanceof BasicObject) {
-                if (((BasicObject) obj).checkInside(e.getX(), e.getY())) {
-                    selection = obj;
-                    ((BasicObject) selection).focus();
-                    clickOnObject = true;
-                    break;
-                }
+            if (obj.isPointInside(e.getX(), e.getY())) {
+                state.currentSelections.mutate(selections -> {
+                    selections.clear();
+                    selections.add(obj);
+                });
+                obj.focus();
+                clickOnObject = true;
+                break;
             }
         }
         if (clickOnObject) {
-            sx = e.getX();
-            sy = e.getY();
+            sx = x;
+            sy = y;
         } else {
-            selection = null;
-            state.selectedArea.set(new Rectangle(e.getX(), e.getY(), 0, 0));
+            state.currentSelections.mutate(selections -> {
+                selections.clear();
+            });
+            state.dragSelectionArea.set(new Rectangle(x, y, x, y));
         }
 
         /* blur all objects that are not current selection */
         state.components.mutate(comps -> {
             for (var obj : comps) {
-                if (obj instanceof BasicObject && obj != selection) {
-                    ((BasicObject) obj).blur();
+                if (!state.currentSelections.get().contains(obj)) {
+                    obj.blur();
                 }
             }
         });
@@ -50,38 +57,48 @@ public class SelectModeHandler extends BaseModeHandler {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (selection == null) {
-            state.selectedArea.mutate(rect -> {
-                rect.width = e.getX() - rect.x;
-                rect.height = e.getY() - rect.y;
-            });
+        if (state.currentSelections.get().size() == 0) {
+            var rect = state.dragSelectionArea.get();
+            var newRect = new Rectangle(rect.x1, rect.y1, e.getX(), e.getY());
+            state.dragSelectionArea.set(newRect);
             return;
         }
         int dx = e.getX() - sx;
         int dy = e.getY() - sy;
-        if (selection instanceof BasicObject) {
-            state.components.mutate(comps -> {
-                ((BasicObject) selection).move(dx, dy);
-            });
-        }
+        state.currentSelections.mutate(selections -> {
+            for (var sel : selections) {
+                sel.move(dx, dy);
+            }
+        });
         sx = e.getX();
         sy = e.getY();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        state.selectedArea.set(null);
+        var rect = state.dragSelectionArea.get();
+        if (rect != null) {
+            state.components.mutate(comps -> {
+                state.currentSelections.mutate(selections -> {
+                    for (var obj : comps) {
+                        if (obj.isFullyInsideRect(rect)) {
+                            obj.focus();
+                            selections.add(obj);
+                        }
+                    }
+                });
+            });
+            state.dragSelectionArea.set(null);
+        }
     }
 
     @Override
     public void cleanup() {
         state.components.mutate(comps -> {
             for (var obj : comps) {
-                if (obj instanceof BasicObject) {
-                    ((BasicObject) obj).blur();
-                }
+                obj.blur();
             }
-            selection = null;
         });
+        state.currentSelections.mutate(selections -> selections.clear());
     }
 }

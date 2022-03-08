@@ -1,13 +1,17 @@
 package net.maple3142.umleditor;
 
-import net.maple3142.umleditor.components.UMLComponent;
+import net.maple3142.umleditor.components.SelectableObject;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationState {
-    public final ReactiveProperty<EditorMode> currentMode = new ReactiveProperty<>(EditorMode.SELECT);
-    public final ReactiveProperty<List<UMLComponent>> components = new ReactiveProperty<>(new ArrayList<>());
-    public final ReactiveProperty<Rectangle> selectedArea = new ReactiveProperty<>(null);
+    public final ObservableProperty<EditorMode> currentMode = new ObservableProperty<>(EditorMode.SELECT);
+    public final ObservableProperty<List<SelectableObject>> components = new ObservableProperty<>(new ArrayList<>());
+    public final ObservableProperty<List<SelectableObject>> currentSelections = new ObservableProperty<>(new ArrayList<>());
+    public final ObservableProperty<Rectangle> dragSelectionArea = new ObservableProperty<>(null);
+
+    public ApplicationState() {
+        currentSelections.bind(val -> components.call());
+    }
 }

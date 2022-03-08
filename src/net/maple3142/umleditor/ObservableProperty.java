@@ -3,23 +3,23 @@ package net.maple3142.umleditor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReactiveProperty<T> {
-    private final List<Callback<T>> listeners = new ArrayList<>();
+public class ObservableProperty<T> {
+    private final List<Callback<T>> callbacks = new ArrayList<>();
     private T val;
 
-    public ReactiveProperty(T v) {
+    public ObservableProperty(T v) {
         val = v;
     }
 
-    public void sendEvents() {
-        for (var cb : listeners) {
+    public void call() {
+        for (var cb : callbacks) {
             cb.handle(val);
         }
     }
 
     public void set(T v) {
         val = v;
-        sendEvents();
+        call();
     }
 
     public T get() {
@@ -28,15 +28,15 @@ public class ReactiveProperty<T> {
 
     public void mutate(Callback<T> cb) {
         cb.handle(val);
-        sendEvents();
+        call();
     }
 
     public void bind(Callback<T> cb) {
-        listeners.add(cb);
+        callbacks.add(cb);
         cb.handle(val);
     }
 
     public void unbind(Callback<T> cb) {
-        listeners.remove(cb);
+        callbacks.remove(cb);
     }
 }

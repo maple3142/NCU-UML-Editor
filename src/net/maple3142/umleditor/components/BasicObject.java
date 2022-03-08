@@ -2,15 +2,16 @@ package net.maple3142.umleditor.components;
 
 import java.awt.*;
 
-public abstract class BasicObject implements UMLComponent {
+import net.maple3142.umleditor.Rectangle;
+
+public abstract class BasicObject implements SelectableObject {
     protected int width;
     protected int height;
     protected int x;
     protected int y;
     protected boolean isSelected = false;
 
-    /* connection dots on 4 sides */
-    ConnectionDot[] dots = new ConnectionDot[4];
+    /* connection dots on 4 sides */ ConnectionDot[] dots = new ConnectionDot[4];
 
     /* connection dot constants */
     /* orientation: up, right, down, left */
@@ -62,18 +63,30 @@ public abstract class BasicObject implements UMLComponent {
         return dots[2];
     }
 
+    @Override
     public void focus() {
         isSelected = true;
     }
 
+    @Override
     public void blur() {
         isSelected = false;
     }
 
+    @Override
     public void move(int dx, int dy) {
         x += dx;
         y += dy;
     }
 
-    public abstract boolean checkInside(int xx, int yy);
+    @Override
+    public boolean isPointInside(int xx, int yy) {
+        return x <= xx && xx <= x + width && y <= yy && yy <= y + height;
+    }
+
+    @Override
+    public boolean isFullyInsideRect(Rectangle rect) {
+        return rect.x <= x && x + width <= rect.x + rect.width &&
+                rect.y <= y && y + height <= rect.y + rect.height;
+    }
 }
