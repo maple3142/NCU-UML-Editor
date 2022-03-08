@@ -1,27 +1,34 @@
 package net.maple3142.umleditor.components;
 
-import java.awt.*;
-
 import net.maple3142.umleditor.Rectangle;
 
+import java.awt.Graphics;
+
 public abstract class BasicObject implements SelectableObject {
-    protected int width;
-    protected int height;
-    protected int x;
-    protected int y;
-    protected boolean isSelected = false;
-
-    /* connection dots on 4 sides */ ConnectionDot[] dots = new ConnectionDot[4];
-
     /* connection dot constants */
     /* orientation: up, right, down, left */
     private final int[] dirX = {0, 1, 0, -1};
     private final int[] dirY = {-1, 0, 1, 0};
+    protected int width, height;
+    protected int x, y;
+    protected int depth;
+    protected boolean focused = false;
+    protected String name;
+    /* connection dots on 4 sides */ ConnectionDot[] dots = new ConnectionDot[4];
 
-    public BasicObject() {
+    public BasicObject(int dep) {
+        depth = dep;
         for (int i = 0; i < 4; i++) {
             dots[i] = new ConnectionDot(this, i);
         }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String s) {
+        name = s;
     }
 
     protected int getDotX(int idx) {
@@ -38,7 +45,7 @@ public abstract class BasicObject implements SelectableObject {
 
     protected void drawDots(Graphics g) {
         for (int i = 0; i < 4; i++) {
-            if (isSelected) {
+            if (focused) {
                 dots[i].draw(g);
             }
             dots[i].drawLines(g);
@@ -46,6 +53,7 @@ public abstract class BasicObject implements SelectableObject {
     }
 
     public ConnectionDot getClosestConnectionDot(int xx, int yy) {
+        if (!isPointInside(xx, yy)) return null;
         // easy maffs
         int cx = x + width / 2;
         int cy = y + height / 2;
@@ -65,12 +73,12 @@ public abstract class BasicObject implements SelectableObject {
 
     @Override
     public void focus() {
-        isSelected = true;
+        focused = true;
     }
 
     @Override
     public void blur() {
-        isSelected = false;
+        focused = false;
     }
 
     @Override
@@ -88,5 +96,30 @@ public abstract class BasicObject implements SelectableObject {
     public boolean isFullyInsideRect(Rectangle rect) {
         return rect.x <= x && x + width <= rect.x + rect.width &&
                 rect.y <= y && y + height <= rect.y + rect.height;
+    }
+
+    @Override
+    public int getLeft() {
+        return x;
+    }
+
+    @Override
+    public int getRight() {
+        return x + width;
+    }
+
+    @Override
+    public int getTop() {
+        return y;
+    }
+
+    @Override
+    public int getBottom() {
+        return y + height;
+    }
+
+    @Override
+    public int getDepth() {
+        return depth;
     }
 }

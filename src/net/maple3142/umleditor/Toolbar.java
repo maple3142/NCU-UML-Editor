@@ -1,7 +1,8 @@
 package net.maple3142.umleditor;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import java.awt.GridLayout;
 import java.util.Objects;
 
 public class Toolbar extends JPanel {

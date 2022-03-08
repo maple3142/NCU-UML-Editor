@@ -1,14 +1,15 @@
 package net.maple3142.umleditor;
 
-import net.maple3142.umleditor.handle.BaseModeHandler;
-import net.maple3142.umleditor.handle.HandlerFactory;
+import net.maple3142.umleditor.handler.BaseModeHandler;
+import net.maple3142.umleditor.handler.HandlerFactory;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public class Canvas extends JPanel {
     private final static Color bgColor = new Color(35, 37, 37);
-    private ApplicationState state;
+    private final ApplicationState state;
     private BaseModeHandler oldHandler = null;
 
     public Canvas(ApplicationState st) {
@@ -25,6 +26,7 @@ public class Canvas extends JPanel {
             oldHandler = newHandler;
         });
         state.components.bind(val -> this.repaint());
+        state.lines.bind(val -> this.repaint());
         state.dragSelectionArea.bind(val -> this.repaint());
     }
 
@@ -33,6 +35,9 @@ public class Canvas extends JPanel {
         g.setColor(bgColor);
         g.fillRect(0, 0, getWidth(), getHeight());
         for (var obj : state.components.get()) {
+            obj.draw(g);
+        }
+        for (var obj : state.lines.get()) {
             obj.draw(g);
         }
 

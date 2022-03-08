@@ -1,17 +1,16 @@
 package net.maple3142.umleditor.components;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectionDot implements UMLComponent {
+public class ConnectionDot implements UMLComponent, Point2D {
     private static final int width = 10;
     private static final int height = 10;
-
-    private final BasicObject parent;
     public final int index;
-
-    private List<Line> lines = new ArrayList<>();
+    private final BasicObject parent;
+    private final List<Line> lines = new ArrayList<>();
 
     public ConnectionDot(BasicObject obj, int idx) {
         parent = obj;

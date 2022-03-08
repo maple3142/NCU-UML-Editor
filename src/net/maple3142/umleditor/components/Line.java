@@ -1,20 +1,16 @@
 package net.maple3142.umleditor.components;
 
-import java.awt.*;
+import java.awt.Color;
 
-public class Line implements UMLComponent {
+public abstract class Line implements UMLComponent {
 
-    private ConnectionDot start;
-    private ConnectionDot end;
+    protected final int sideLength = 12;
+    protected final Color lineColor = Color.CYAN;
+    protected final Point2D start;
+    protected final Point2D end;
 
-    public Line(ConnectionDot st, ConnectionDot ed) {
+    public Line(Point2D st, Point2D ed) {
         start = st;
         end = ed;
-    }
-
-    @Override
-    public void draw(Graphics g) {
-        g.setColor(Color.WHITE);
-        g.drawLine(start.getX(), start.getY(), end.getX(), end.getY());
     }
 }

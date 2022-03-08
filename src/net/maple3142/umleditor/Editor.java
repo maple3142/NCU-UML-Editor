@@ -1,12 +1,13 @@
 package net.maple3142.umleditor;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 public class Editor extends JFrame {
     final static int winHeight = 120 * 6;
     final static int winWidth = 800;
-    private ApplicationState state;
+    private final ApplicationState state;
 
     public Editor() {
         state = new ApplicationState();

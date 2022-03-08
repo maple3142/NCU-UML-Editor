@@ -1,14 +1,10 @@
-package net.maple3142.umleditor.handle;
+package net.maple3142.umleditor.handler;
 
 import net.maple3142.umleditor.ApplicationState;
-import net.maple3142.umleditor.components.SelectableObject;
+import net.maple3142.umleditor.Rectangle;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.List;
-import java.util.ArrayList;
-
-import net.maple3142.umleditor.Rectangle;
 
 public class SelectModeHandler extends BaseModeHandler {
     /* Last triggering point */
@@ -26,7 +22,7 @@ public class SelectModeHandler extends BaseModeHandler {
         boolean clickOnObject = false;
         for (var obj : state.components.get()) {
             if (obj.isPointInside(e.getX(), e.getY())) {
-                state.currentSelections.mutate(selections -> {
+                state.selections.mutate(selections -> {
                     selections.clear();
                     selections.add(obj);
                 });
@@ -39,16 +35,14 @@ public class SelectModeHandler extends BaseModeHandler {
             sx = x;
             sy = y;
         } else {
-            state.currentSelections.mutate(selections -> {
-                selections.clear();
-            });
+            state.selections.mutate(List::clear);
             state.dragSelectionArea.set(new Rectangle(x, y, x, y));
         }
 
         /* blur all objects that are not current selection */
         state.components.mutate(comps -> {
             for (var obj : comps) {
-                if (!state.currentSelections.get().contains(obj)) {
+                if (!state.selections.get().contains(obj)) {
                     obj.blur();
                 }
             }
@@ -57,7 +51,7 @@ public class SelectModeHandler extends BaseModeHandler {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (state.currentSelections.get().size() == 0) {
+        if (state.selections.get().size() == 0) {
             var rect = state.dragSelectionArea.get();
             var newRect = new Rectangle(rect.x1, rect.y1, e.getX(), e.getY());
             state.dragSelectionArea.set(newRect);
@@ -65,7 +59,7 @@ public class SelectModeHandler extends BaseModeHandler {
         }
         int dx = e.getX() - sx;
         int dy = e.getY() - sy;
-        state.currentSelections.mutate(selections -> {
+        state.selections.mutate(selections -> {
             for (var sel : selections) {
                 sel.move(dx, dy);
             }
@@ -79,7 +73,7 @@ public class SelectModeHandler extends BaseModeHandler {
         var rect = state.dragSelectionArea.get();
         if (rect != null) {
             state.components.mutate(comps -> {
-                state.currentSelections.mutate(selections -> {
+                state.selections.mutate(selections -> {
                     for (var obj : comps) {
                         if (obj.isFullyInsideRect(rect)) {
                             obj.focus();
@@ -99,6 +93,6 @@ public class SelectModeHandler extends BaseModeHandler {
                 obj.blur();
             }
         });
-        state.currentSelections.mutate(selections -> selections.clear());
+        state.selections.mutate(selections -> selections.clear());
     }
 }

@@ -1,6 +1,5 @@
 package net.maple3142.umleditor;
 
-import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 

@@ -1,4 +1,4 @@
-package net.maple3142.umleditor.handle;
+package net.maple3142.umleditor.handler;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;

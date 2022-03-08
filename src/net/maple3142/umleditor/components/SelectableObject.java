@@ -9,7 +9,19 @@ public interface SelectableObject extends UMLComponent {
 
     void blur();
 
+    ConnectionDot getClosestConnectionDot(int xx, int yy);
+
     boolean isPointInside(int xx, int yy);
 
     boolean isFullyInsideRect(Rectangle rect);
+
+    int getLeft();
+
+    int getRight();
+
+    int getTop();
+
+    int getBottom();
+
+    int getDepth();
 }

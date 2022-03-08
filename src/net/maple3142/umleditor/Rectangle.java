@@ -2,16 +2,12 @@ package net.maple3142.umleditor;
 
 public class Rectangle {
     // the original two point
-    public final int x1;
-    public final int x2;
-    public final int y1;
-    public final int y2;
+    public final int x1, y1;
+    public final int x2, y2;
     // x, y are the left top point
     // width and height are guaranteed to be positive
-    public final int x;
-    public final int y;
-    public final int width;
-    public final int height;
+    public final int x, y;
+    public final int width, height;
 
     public Rectangle(int x1, int y1, int x2, int y2) {
         // Immutable Rectangle class that could correctly construct rectangle for any two points
