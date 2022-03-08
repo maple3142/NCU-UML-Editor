@@ -1,6 +1,6 @@
 package net.maple3142.umleditor.components;
 
-import net.maple3142.umleditor.Rectangle;
+import net.maple3142.umleditor.misc.Rectangle;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -10,6 +10,10 @@ import java.util.List;
 
 
 public class CompositeObject implements SelectableObject {
+    private static final Color focusedColor = new Color(80, 80, 80, 64);
+    private static final int horizontalPadding = 10;
+    private static final int verticalPadding = 10;
+
     private final List<SelectableObject> objs;
     private int left, right, top, bottom;
     private final int depth;
@@ -124,8 +128,8 @@ public class CompositeObject implements SelectableObject {
             obj.draw(g);
         }
         if (focused) {
-            g.setColor(new Color(80, 80, 80, 64));
-            g.fillRect(left, top, right - left, bottom - top);
+            g.setColor(focusedColor);
+            g.fillRect(left - horizontalPadding, top - verticalPadding, right - left + 2 * horizontalPadding, bottom - top + 2 * verticalPadding);
         }
     }
 }

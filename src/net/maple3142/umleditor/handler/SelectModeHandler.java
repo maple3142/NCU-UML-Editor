@@ -1,7 +1,7 @@
 package net.maple3142.umleditor.handler;
 
 import net.maple3142.umleditor.ApplicationState;
-import net.maple3142.umleditor.Rectangle;
+import net.maple3142.umleditor.misc.Rectangle;
 
 import java.awt.event.MouseEvent;
 import java.util.List;

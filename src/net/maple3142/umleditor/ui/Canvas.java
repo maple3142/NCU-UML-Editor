@@ -1,5 +1,6 @@
-package net.maple3142.umleditor;
+package net.maple3142.umleditor.ui;
 
+import net.maple3142.umleditor.ApplicationState;
 import net.maple3142.umleditor.handler.BaseModeHandler;
 import net.maple3142.umleditor.handler.HandlerFactory;
 
@@ -8,7 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Canvas extends JPanel {
-    private final static Color bgColor = new Color(35, 37, 37);
+    private final static Color bgColor = new Color(38, 41, 40);
     private final ApplicationState state;
     private BaseModeHandler oldHandler = null;
 

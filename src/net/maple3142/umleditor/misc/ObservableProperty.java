@@ -1,4 +1,4 @@
-package net.maple3142.umleditor;
+package net.maple3142.umleditor.misc;
 
 import java.util.ArrayList;
 import java.util.List;

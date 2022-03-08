@@ -1,7 +1,7 @@
 package net.maple3142.umleditor.components;
 
-import net.maple3142.umleditor.DrawingUtils;
-import net.maple3142.umleditor.Rectangle;
+import net.maple3142.umleditor.misc.DrawingUtils;
+import net.maple3142.umleditor.misc.Rectangle;
 
 import java.awt.Color;
 import java.awt.Graphics;

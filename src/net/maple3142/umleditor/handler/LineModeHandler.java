@@ -12,7 +12,7 @@ import java.util.function.BiFunction;
 public class LineModeHandler extends BaseModeHandler {
     private final BiFunction<Point2D, Point2D, Line> createLine;
     private ConnectionDot start;
-    private Line templine;
+    private Line tempLine;
     public LineModeHandler(ApplicationState st, BiFunction<Point2D, Point2D, Line> lineCons) {
         super(st);
         createLine = lineCons;
@@ -35,9 +35,9 @@ public class LineModeHandler extends BaseModeHandler {
         if (start == null) return;
         var end = new SimplePoint2D(e.getX(), e.getY());
         state.lines.mutate(lines -> {
-            lines.remove(templine);
-            templine = createLine.apply(start, end);
-            lines.add(templine);
+            lines.remove(tempLine);
+            tempLine = createLine.apply(start, end);
+            lines.add(tempLine);
         });
     }
 
@@ -47,8 +47,8 @@ public class LineModeHandler extends BaseModeHandler {
         int x = e.getX();
         int y = e.getY();
         state.lines.mutate(lines -> {
-            lines.remove(templine);
-            templine = null;
+            lines.remove(tempLine);
+            tempLine = null;
             for (var obj : state.components.get()) {
                 var end = obj.getClosestConnectionDot(x, y);
                 if (end != null && end != start) {

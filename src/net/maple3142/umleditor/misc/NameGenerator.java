@@ -1,4 +1,4 @@
-package net.maple3142.umleditor;
+package net.maple3142.umleditor.misc;
 
 public class NameGenerator {
     private int id = 1;

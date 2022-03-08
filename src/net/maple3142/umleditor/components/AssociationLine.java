@@ -1,6 +1,6 @@
 package net.maple3142.umleditor.components;
 
-import net.maple3142.umleditor.DrawingUtils;
+import net.maple3142.umleditor.misc.DrawingUtils;
 
 import java.awt.Graphics;
 

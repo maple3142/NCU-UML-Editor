@@ -1,4 +1,6 @@
-package net.maple3142.umleditor;
+package net.maple3142.umleditor.ui;
+
+import net.maple3142.umleditor.ApplicationState;
 
 import javax.swing.JFrame;
 import java.awt.BorderLayout;
@@ -7,10 +9,9 @@ import java.awt.Dimension;
 public class Editor extends JFrame {
     final static int winHeight = 120 * 6;
     final static int winWidth = 800;
-    private final ApplicationState state;
 
     public Editor() {
-        state = new ApplicationState();
+        var state = new ApplicationState();
 
         setTitle("UMLEditor");
         setPreferredSize(new Dimension(winWidth, winHeight));

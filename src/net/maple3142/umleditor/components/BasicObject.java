@@ -1,6 +1,6 @@
 package net.maple3142.umleditor.components;
 
-import net.maple3142.umleditor.Rectangle;
+import net.maple3142.umleditor.misc.Rectangle;
 
 import java.awt.Graphics;
 
@@ -52,6 +52,7 @@ public abstract class BasicObject implements SelectableObject {
         }
     }
 
+    @SuppressWarnings("SpellCheckingInspection")
     public ConnectionDot getClosestConnectionDot(int xx, int yy) {
         if (!isPointInside(xx, yy)) return null;
         // easy maffs

@@ -3,6 +3,11 @@ package net.maple3142.umleditor;
 import net.maple3142.umleditor.components.Line;
 import net.maple3142.umleditor.components.SelectableObject;
 import net.maple3142.umleditor.components.SelectableObjectComparator;
+import net.maple3142.umleditor.misc.DepthManager;
+import net.maple3142.umleditor.misc.NameGenerator;
+import net.maple3142.umleditor.misc.ObservableProperty;
+import net.maple3142.umleditor.misc.Rectangle;
+import net.maple3142.umleditor.ui.EditorMode;
 
 import java.util.ArrayList;
 import java.util.Collection;

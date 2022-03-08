@@ -1,5 +1,6 @@
-package net.maple3142.umleditor;
+package net.maple3142.umleditor.ui;
 
+import net.maple3142.umleditor.ApplicationState;
 import net.maple3142.umleditor.components.BasicObject;
 import net.maple3142.umleditor.components.CompositeObject;
 

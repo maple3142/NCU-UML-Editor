@@ -1,4 +1,4 @@
-package net.maple3142.umleditor;
+package net.maple3142.umleditor.ui;
 
 public enum EditorMode {
     SELECT("select"),

@@ -1,4 +1,6 @@
-package net.maple3142.umleditor;
+package net.maple3142.umleditor.ui;
+
+import net.maple3142.umleditor.ApplicationState;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
