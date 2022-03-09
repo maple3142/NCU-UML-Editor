@@ -13,7 +13,7 @@ public class ObservableProperty<T> {
 
     public void call() {
         for (var cb : callbacks) {
-            cb.handle(val);
+            cb.call(val);
         }
     }
 
@@ -27,13 +27,13 @@ public class ObservableProperty<T> {
     }
 
     public void mutate(Callback<T> cb) {
-        cb.handle(val);
+        cb.call(val);
         call();
     }
 
     public void bind(Callback<T> cb) {
         callbacks.add(cb);
-        cb.handle(val);
+        cb.call(val);
     }
 
     public void unbind(Callback<T> cb) {

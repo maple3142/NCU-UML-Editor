@@ -15,8 +15,8 @@ public class CompositeObject implements SelectableObject {
     private static final int verticalPadding = 10;
 
     private final List<SelectableObject> objs;
-    private int left, right, top, bottom;
     private final int depth;
+    private int left, right, top, bottom;
     private boolean focused = false;
 
     public CompositeObject(List<SelectableObject> l, int dep) {

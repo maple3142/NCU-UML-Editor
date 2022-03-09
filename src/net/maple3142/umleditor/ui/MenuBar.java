@@ -10,14 +10,16 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 
-public class MenuBar extends JMenuBar {
+@SuppressWarnings("CodeBlock2Expr")
+public class MenuBar {
     private final ApplicationState state;
+    private final JMenuBar menuBar = new JMenuBar();
 
     public MenuBar(ApplicationState st) {
         state = st;
 
         var fileMenu = new JMenu("File");
-        add(fileMenu);
+        menuBar.add(fileMenu);
         var exitItem = new JMenuItem("Exit");
         fileMenu.add(exitItem);
         exitItem.addActionListener(event -> {
@@ -25,7 +27,7 @@ public class MenuBar extends JMenuBar {
         });
 
         var editMenu = new JMenu("Edit");
-        add(editMenu);
+        menuBar.add(editMenu);
         var changeNameItem = new JMenuItem("Change object name");
         changeNameItem.setEnabled(false);
         changeNameItem.addActionListener(this::onChangeName);
@@ -53,10 +55,14 @@ public class MenuBar extends JMenuBar {
         });
     }
 
+    public JMenuBar getComponent() {
+        return menuBar;
+    }
+
     private void onChangeName(ActionEvent event) {
         state.selections.mutate(selections -> {
             var target = (BasicObject) selections.get(0);
-            var newName = JOptionPane.showInputDialog(this, "New name:", target.getName());
+            var newName = JOptionPane.showInputDialog(menuBar, "New name:", target.getName());
             if (newName != null) {
                 target.setName(newName);
             }

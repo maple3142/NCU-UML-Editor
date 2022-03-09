@@ -3,17 +3,18 @@ package net.maple3142.umleditor.handler;
 import net.maple3142.umleditor.ApplicationState;
 import net.maple3142.umleditor.components.ConnectionDot;
 import net.maple3142.umleditor.components.Line;
-import net.maple3142.umleditor.components.Point2D;
-import net.maple3142.umleditor.components.SimplePoint2D;
+import net.maple3142.umleditor.misc.IntPointXY;
+import net.maple3142.umleditor.misc.Vector2;
 
 import java.awt.event.MouseEvent;
 import java.util.function.BiFunction;
 
 public class LineModeHandler extends BaseModeHandler {
-    private final BiFunction<Point2D, Point2D, Line> createLine;
+    private final BiFunction<IntPointXY, IntPointXY, Line> createLine;
     private ConnectionDot start;
     private Line tempLine;
-    public LineModeHandler(ApplicationState st, BiFunction<Point2D, Point2D, Line> lineCons) {
+
+    public LineModeHandler(ApplicationState st, BiFunction<IntPointXY, IntPointXY, Line> lineCons) {
         super(st);
         createLine = lineCons;
     }
@@ -33,7 +34,7 @@ public class LineModeHandler extends BaseModeHandler {
     @Override
     public void mouseDragged(MouseEvent e) {
         if (start == null) return;
-        var end = new SimplePoint2D(e.getX(), e.getY());
+        var end = new Vector2(e.getX(), e.getY());
         state.lines.mutate(lines -> {
             lines.remove(tempLine);
             tempLine = createLine.apply(start, end);

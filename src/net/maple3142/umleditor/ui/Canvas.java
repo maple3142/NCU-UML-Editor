@@ -10,6 +10,7 @@ import java.awt.Graphics;
 
 public class Canvas extends JPanel {
     private final static Color bgColor = new Color(38, 41, 40);
+    private final static Color selectionColor = new Color(66, 200, 245, 64);
     private final ApplicationState state;
     private BaseModeHandler oldHandler = null;
 
@@ -44,7 +45,7 @@ public class Canvas extends JPanel {
 
         if (state.dragSelectionArea.get() != null) {
             var rect = state.dragSelectionArea.get();
-            g.setColor(new Color(66, 200, 245, 64));
+            g.setColor(selectionColor);
             g.fillRect(rect.x, rect.y, rect.width, rect.height);
         }
     }

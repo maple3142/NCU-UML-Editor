@@ -1,11 +1,13 @@
 package net.maple3142.umleditor.components;
 
+import net.maple3142.umleditor.misc.IntPointXY;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConnectionDot implements UMLComponent, Point2D {
+public class ConnectionDot implements UMLComponent, IntPointXY {
     private static final int width = 10;
     private static final int height = 10;
     public final int index;

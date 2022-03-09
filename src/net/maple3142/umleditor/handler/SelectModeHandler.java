@@ -6,6 +6,7 @@ import net.maple3142.umleditor.misc.Rectangle;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
+@SuppressWarnings("CodeBlock2Expr")
 public class SelectModeHandler extends BaseModeHandler {
     /* Last triggering point */
     private int sx;
@@ -93,6 +94,6 @@ public class SelectModeHandler extends BaseModeHandler {
                 obj.blur();
             }
         });
-        state.selections.mutate(selections -> selections.clear());
+        state.selections.mutate(List::clear);
     }
 }
