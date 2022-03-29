@@ -5,6 +5,6 @@ import java.util.Comparator;
 public class SelectableObjectComparator implements Comparator<SelectableObject> {
     @Override
     public int compare(SelectableObject a, SelectableObject b) {
-        return a.getDepth() - b.getDepth();
+        return b.getDepth() - a.getDepth();
     }
 }

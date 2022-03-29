@@ -14,7 +14,8 @@ public abstract class BasicObject implements SelectableObject {
     protected int depth;
     protected boolean focused = false;
     protected String name;
-    /* connection dots on 4 sides */ ConnectionDot[] dots = new ConnectionDot[4];
+    /* connection dots on 4 sides */
+    ConnectionDot[] dots = new ConnectionDot[4];
 
     public BasicObject(int dep) {
         depth = dep;
@@ -55,7 +56,7 @@ public abstract class BasicObject implements SelectableObject {
     @SuppressWarnings("SpellCheckingInspection")
     public ConnectionDot getClosestConnectionDot(int xx, int yy) {
         if (!isPointInside(xx, yy)) return null;
-        // easy maffs
+        // quick maffs
         int cx = x + width / 2;
         int cy = y + height / 2;
         double angle = Math.atan2(-(yy - cy), xx - cx);  // angle in [-pi, pi]
