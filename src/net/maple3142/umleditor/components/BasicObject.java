@@ -49,7 +49,6 @@ public abstract class BasicObject implements SelectableObject {
             if (focused) {
                 dots[i].draw(g);
             }
-            dots[i].drawLines(g);
         }
     }
 
