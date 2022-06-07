@@ -22,9 +22,7 @@ public class MenuBar {
         menuBar.add(fileMenu);
         var exitItem = new JMenuItem("Exit");
         fileMenu.add(exitItem);
-        exitItem.addActionListener(event -> {
-            System.exit(0);
-        });
+        exitItem.addActionListener(this::onExit);
 
         var editMenu = new JMenu("Edit");
         menuBar.add(editMenu);
@@ -57,6 +55,10 @@ public class MenuBar {
 
     public JMenuBar getComponent() {
         return menuBar;
+    }
+
+    private void onExit(ActionEvent event) {
+        System.exit(0);
     }
 
     private void onChangeName(ActionEvent event) {

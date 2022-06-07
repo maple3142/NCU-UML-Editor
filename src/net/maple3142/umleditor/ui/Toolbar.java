@@ -26,8 +26,6 @@ public class Toolbar {
                 state.currentMode.set(mode);
             });
         }
-
-        state.currentMode.set(EditorMode.SELECT);
     }
 
     public JPanel getComponent() {
